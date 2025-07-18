@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SalesWebMVC.Data;
+using SalesWebMVC.Services;
 using System.Configuration;
 namespace SalesWebMVC
 {
@@ -18,6 +19,7 @@ namespace SalesWebMVC
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<SeedingService>();
+            builder.Services.AddScoped<SellerService>();
 
             var app = builder.Build();
 
@@ -31,6 +33,7 @@ namespace SalesWebMVC
 
             using var scope = app.Services.CreateScope();
             scope.ServiceProvider.GetRequiredService<SeedingService>().Seed();
+
 
 
             app.UseHttpsRedirection();
