@@ -1,6 +1,7 @@
 ﻿using SalesWebMVC.Data;
 using SalesWebMVC.Models;
 using System.Collections.Immutable;
+using Microsoft.EntityFrameworkCore;
 namespace SalesWebMVC.Services
 
 {
@@ -26,7 +27,7 @@ namespace SalesWebMVC.Services
 
         public Seller FindById(int id) 
         {
-            return _context.Seller.FirstOrDefault(n => n.Id == id);
+            return _context.Seller.Include(obj => obj.Department).FirstOrDefault(n => n.Id == id);
         }
 
         public void Remove(int id) 
