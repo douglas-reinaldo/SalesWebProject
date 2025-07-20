@@ -2,6 +2,7 @@
 using SalesWebMVC.Services;
 using SalesWebMVC.Models;
 using SalesWebMVC.Models.ViewModels;
+using AspNetCoreGeneratedDocument;
 
 namespace SalesWebMVC.Controllers
 {
@@ -35,6 +36,29 @@ namespace SalesWebMVC.Controllers
         public IActionResult Create(Seller seller) 
         {
             _sellerService.Insert(seller);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Delete(int? Id) 
+        {
+            if (Id == null) 
+            {
+                return NotFound();
+            }
+
+            var obj = _sellerService.FindById(Id.Value);
+            if (obj == null) 
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int Id) 
+        {
+            _sellerService.Remove(Id);
             return RedirectToAction(nameof(Index));
         }
     }
