@@ -18,5 +18,13 @@ namespace SalesWebMVC.Data
         public DbSet<SalesRecord> SalesRecord { get; set; }
         public DbSet<Seller> Seller { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<SalesRecord>()
+                .HasOne(sr => sr.Seller)
+                .WithMany(s => s.Sales)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+
     }
 }
